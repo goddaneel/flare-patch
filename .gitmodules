@@ -1,0 +1,3 @@
+[submodule "Flare"]
+	path = Flare
+	url = https://github.com/DimensionDev/Flare.git
