@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Flare
+Exec=flare-run %U
+Terminal=false
+Icon=dev.dimension.flare
+StartupWMClass=dev-dimension-flare-MainKt
+X-Flatpak=dev.dimension.flare
+Categories=Network;

@@ -1,0 +1,61 @@
+id: dev.dimension.flare
+runtime: org.gnome.Platform
+runtime-version: '49'
+sdk: org.gnome.Sdk
+command: flare-run
+
+
+
+finish-args:
+  - --share=network
+  - --socket=wayland
+  - --device=dri
+  - --persist="."
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.kde.StatusNotifierWatcher
+
+
+
+modules:
+  - name: flare
+    buildsystem: simple
+    build-commands:
+      - chmod a+x "./Flare-version.appimage"
+      - ./Flare-version.appimage --appimage-extract
+
+      - install -v -d -m 0755 "/app/bin"
+      - install -v -d -m 0755 "/app/share/metainfo"
+      - install -v -d -m 0755 "/app/share/doc"
+      - install -v -d -m 0755 "/app/share/applications"
+      - install -v -d -m 0755 "/app/share/icons/hicolor/512x512/apps"
+      - install -v -d -m 0755 "/app/appimage"
+
+      - install -v -m 0755 
+        "./flatpak/dev.dimension.flare.bash"
+        "/app/bin/flare-run"
+      - install -v -m 0644 
+        "./flatpak/dev.dimension.flare.metainfo.xml"
+        "/app/share/metainfo/"
+      - install -v -m 0644 
+        "./flatpak/dev.dimension.flare.desktop"
+        "/app/share/applications/"
+      - install -v -m 0644 
+        "./squashfs-root/usr/share/icons/hicolor/512x512/apps/Flare.png"
+        "/app/share/icons/hicolor/512x512/apps/dev.dimension.flare.png"
+
+      - cp -rv
+        "./squashfs-root"
+        "/app/appimage/flare"
+      - cp -rv
+        "./squashfs-root/usr/share/icons"
+        "/app/share"
+
+
+    sources:
+      - type: dir
+        path: "../"
+
+      - type: file
+        url: https://github.com/DimensionDev/Flare/releases/download/1.4.2/Flare-1.4.2.AppImage
+        sha256: 4126cdad0fc9da23ea818cf2961a6e74d2ff45c3603be369dfb41defffa1a8b4
+        dest-filename: Flare-version.appimage
