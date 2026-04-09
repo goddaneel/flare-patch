@@ -9,10 +9,16 @@ command: flare-run
 finish-args:
   - --share=network
   - --socket=wayland
+  - --socket=x11
   - --device=dri
   - --persist="."
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
+
+
+
+cleanup:
+  - '.'
 
 
 
